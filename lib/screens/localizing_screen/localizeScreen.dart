@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently_app/Provider/theme_provider.dart';
 import 'package:evently_app/core/Image_app.dart';
 import 'package:evently_app/core/StringApp.dart';
 import 'package:evently_app/core/colorsApp.dart';
 import 'package:evently_app/core/style_app.dart';
 import 'package:evently_app/screens/onbording_screen/onboredingScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LocalizeScreen extends StatelessWidget {
   static const String routeName = '/localize';
@@ -13,6 +15,7 @@ class LocalizeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -26,7 +29,10 @@ class LocalizeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           spacing: 30,
           children: [
-            Image.asset(ImageApp.creative,fit: BoxFit.cover,),
+            ImageIcon(AssetImage(ImageApp.creative,),
+            size: 440,
+            color:provider.themeMode == ThemeMode.light?Theme.of(context).colorScheme.primary :Theme.of(context).colorScheme.onError ,
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 8,
@@ -103,22 +109,36 @@ class LocalizeScreen extends StatelessWidget {
                 Row(
                   spacing: 6,
                   children: [
-                    Container(
-                        padding: EdgeInsets.symmetric(vertical:7,horizontal: 16),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary ,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: ImageIcon(AssetImage(ImageApp.lightMode),color:Theme.of(context).colorScheme.onError,size: 30,)
-                        ),
-                    Container(
-                        padding: EdgeInsets.symmetric(vertical:7,horizontal: 16),
-                        decoration: BoxDecoration(
-                          color:  Theme.of(context).colorScheme.onError,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child:  ImageIcon(AssetImage(ImageApp.darkMode),color:Theme.of(context).colorScheme.primary,size: 30,)
-                        ),
+                    GestureDetector(
+                      onTap: (){
+                        provider.changeTheme(ThemeMode.light);
+                      },
+                      child: Container(
+                          padding: EdgeInsets.symmetric(vertical:7,horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: provider.themeMode == ThemeMode.light?Theme.of(context).colorScheme.primary :Theme.of(context).colorScheme.onError,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: ImageIcon(AssetImage(ImageApp.lightMode),
+                            color:provider.themeMode == ThemeMode.light?Theme.of(context).colorScheme.onError :Theme.of(context).colorScheme.primary
+                            ,size: 30,)
+                          ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        provider.changeTheme(ThemeMode.dark);
+                      },
+                      child: Container(
+                          padding: EdgeInsets.symmetric(vertical:7,horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: provider.themeMode == ThemeMode.dark?Theme.of(context).colorScheme.primary :Theme.of(context).colorScheme.onError,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child:  ImageIcon(AssetImage(ImageApp.darkMode),
+                            color: provider.themeMode == ThemeMode.dark?Theme.of(context).colorScheme.onError :Theme.of(context).colorScheme.primary,
+                            size: 30,)
+                          ),
+                    ),
 
                   ]
                 )

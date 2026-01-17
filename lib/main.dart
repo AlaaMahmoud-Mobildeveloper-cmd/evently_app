@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently_app/Provider/theme_provider.dart';
 import 'package:evently_app/core/theme_app.dart';
 import 'package:evently_app/firebase_options.dart';
 import 'package:evently_app/screens/localizing_screen/localizeScreen.dart';
 import 'package:evently_app/screens/onbording_screen/onboredingScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,9 @@ void main() async{
       supportedLocales: [Locale('en', 'US'), Locale('ar', 'EG')],
       path: 'assets/translations',
       fallbackLocale: Locale('en', 'US'),
-      child:  MyApp()));
+      child:  ChangeNotifierProvider(
+          create: (context)=> ThemeProvider(),
+          child: MyApp())));
 }
 
 class MyApp extends StatelessWidget {
@@ -24,10 +28,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       theme: ThemeAppData.lightTheme,
       darkTheme: ThemeAppData.darkTheme ,
-      themeMode: ThemeMode.light,
+      themeMode:provider.themeMode,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
