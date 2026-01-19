@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/Provider/theme_provider.dart';
+import 'package:evently_app/core/caching.dart';
 import 'package:evently_app/core/theme_app.dart';
 import 'package:evently_app/firebase_options.dart';
+import 'package:evently_app/screens/authntaction_screens/login/login_screen.dart';
 import 'package:evently_app/screens/localizing_screen/localizeScreen.dart';
 import 'package:evently_app/screens/onbording_screen/onboredingScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,6 +16,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await CachingHelper.initial();
   runApp( EasyLocalization(
       supportedLocales: [Locale('en', 'US'), Locale('ar', 'EG')],
       path: 'assets/translations',
@@ -37,10 +40,11 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
-      initialRoute: LocalizeScreen.routeName ,
+      initialRoute: CachingHelper.getCaching("caching") == true ? LoginScreen.routeName : LocalizeScreen.routeName ,
       routes: {
         LocalizeScreen.routeName: (context) =>  LocalizeScreen(),
         OnboardingScreen.routeName: (context) =>  OnboardingScreen(),
+        LoginScreen.routeName: (context) =>  LoginScreen(),
       },
     );
   }

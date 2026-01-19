@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/Provider/theme_provider.dart';
 import 'package:evently_app/core/Image_app.dart';
 import 'package:evently_app/core/StringApp.dart';
+import 'package:evently_app/core/caching.dart';
 import 'package:evently_app/core/colorsApp.dart';
 import 'package:evently_app/core/style_app.dart';
+import 'package:evently_app/screens/authntaction_screens/login/login_screen.dart';
 import 'package:evently_app/screens/onbording_screen/onboredingScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,10 +29,10 @@ class LocalizeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: 30,
+          spacing: 20,
           children: [
             ImageIcon(AssetImage(ImageApp.creative,),
-            size: 440,
+            size: 400,
             color:provider.themeMode == ThemeMode.light?Theme.of(context).colorScheme.primary :Theme.of(context).colorScheme.onError ,
             ),
             Column(
@@ -148,6 +150,7 @@ class LocalizeScreen extends StatelessWidget {
             ElevatedButton(
 
               onPressed: () {
+
                 Navigator.pushNamed(context, OnboardingScreen.routeName);
               },
               style: ElevatedButton.styleFrom(
