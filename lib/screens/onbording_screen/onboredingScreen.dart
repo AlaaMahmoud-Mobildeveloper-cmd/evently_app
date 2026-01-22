@@ -62,7 +62,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     : false,
                 onPressedShip: () async{
                   await CachingHelper.saveCaching(true);
-                  Navigator.pushNamed(context, LoginScreen.routeName);
+                  Navigator.pushReplacementNamed(context, LoginScreen.routeName);
                 },
               )
           ),
@@ -87,7 +87,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   );
                 } else {
                   await CachingHelper.saveCaching(true);
-                  Navigator.pushNamed(context, LoginScreen.routeName);
+                  Navigator.pushReplacementNamed(context, LoginScreen.routeName);
                 }
               },
               titleButton:currentPage.round() ==2 ? StringApp.getStartButton : StringApp.nextButton,

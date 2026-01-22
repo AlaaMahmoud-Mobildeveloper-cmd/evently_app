@@ -3,7 +3,10 @@ import 'package:evently_app/Provider/theme_provider.dart';
 import 'package:evently_app/core/caching.dart';
 import 'package:evently_app/core/theme_app.dart';
 import 'package:evently_app/firebase_options.dart';
+import 'package:evently_app/screens/authntaction_screens/forgetPassword/forgetPassowrd_Screen.dart';
 import 'package:evently_app/screens/authntaction_screens/login/login_screen.dart';
+import 'package:evently_app/screens/authntaction_screens/sign_upScreen/signUpScreen.dart';
+import 'package:evently_app/screens/home_screen/home_screen.dart';
 import 'package:evently_app/screens/localizing_screen/localizeScreen.dart';
 import 'package:evently_app/screens/onbording_screen/onboredingScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -40,11 +43,14 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
-      initialRoute: CachingHelper.getCaching("caching") == true ? LoginScreen.routeName : LocalizeScreen.routeName ,
+      initialRoute: CachingHelper.getCaching("caching") == true ? HomeScreen.routeName : LocalizeScreen.routeName ,
       routes: {
         LocalizeScreen.routeName: (context) =>  LocalizeScreen(),
         OnboardingScreen.routeName: (context) =>  OnboardingScreen(),
         LoginScreen.routeName: (context) =>  LoginScreen(),
+        SignUpScreen.routeName: (context) =>  SignUpScreen(),
+        ForgetPasswordScreen.routeName: (context) =>  ForgetPasswordScreen(),
+        HomeScreen.routeName: (context) =>  HomeScreen(),
       },
     );
   }

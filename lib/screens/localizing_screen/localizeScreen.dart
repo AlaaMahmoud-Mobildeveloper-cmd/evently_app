@@ -3,7 +3,6 @@ import 'package:evently_app/Provider/theme_provider.dart';
 import 'package:evently_app/core/Image_app.dart';
 import 'package:evently_app/core/StringApp.dart';
 import 'package:evently_app/core/caching.dart';
-import 'package:evently_app/core/colorsApp.dart';
 import 'package:evently_app/core/style_app.dart';
 import 'package:evently_app/screens/authntaction_screens/login/login_screen.dart';
 import 'package:evently_app/screens/onbording_screen/onboredingScreen.dart';
@@ -149,9 +148,11 @@ class LocalizeScreen extends StatelessWidget {
             SizedBox(height: 5,),
             ElevatedButton(
 
-              onPressed: () {
-
-                Navigator.pushNamed(context, OnboardingScreen.routeName);
+              onPressed: () async{
+                await CachingHelper.saveCaching(true);
+                Navigator.pushNamed(context, CachingHelper.getCaching("caching") == true
+                    ? LoginScreen.routeName
+                    :OnboardingScreen.routeName);
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 10),
