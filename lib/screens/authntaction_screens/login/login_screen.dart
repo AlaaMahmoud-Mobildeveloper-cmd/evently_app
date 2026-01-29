@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently_app/Provider/auth_provider.dart';
+import 'package:evently_app/Provider/theme_provider.dart';
 import 'package:evently_app/core/Image_app.dart';
 import 'package:evently_app/core/firebase_functions.dart';
 import 'package:evently_app/core/style_app.dart';
@@ -6,6 +8,7 @@ import 'package:evently_app/screens/authntaction_screens/forgetPassword/forgetPa
 import 'package:evently_app/screens/authntaction_screens/sign_upScreen/signUpScreen.dart';
 import 'package:evently_app/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -23,6 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<AuthProvider>(context);
+    var themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(
@@ -57,7 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller:emailController ,
                   style: TextStyle(
                     fontSize:  20,
-                    color: Theme.of(context).colorScheme.primary
+                    color:themeProvider.themeMode == ThemeMode.light
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.onError
                   ),
                   decoration: InputDecoration(
                     hintText: "email".tr(),
@@ -72,10 +79,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     prefixIcon:ImageIcon(AssetImage(ImageApp.email)),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular( 6),
+                      borderRadius: BorderRadius.circular( 16),
                       borderSide: BorderSide(color:Theme.of(context).colorScheme.onError )
                   ),
-                    fillColor:Theme.of(context).colorScheme.onError ,
+                    fillColor: themeProvider.themeMode == ThemeMode.light
+                        ? Theme.of(context).colorScheme.onError
+                        : Theme.of(context).colorScheme.background
+                    ,
                     filled: true,
                   )
                 ),
@@ -89,7 +99,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller:passwordController ,
                   style: TextStyle(
                     fontSize:  20,
-                    color: Theme.of(context).colorScheme.primary
+                    color:themeProvider.themeMode == ThemeMode.light
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.onError
                   ),
                   obscureText: _isObscured,
                   decoration: InputDecoration(
@@ -117,10 +129,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     prefixIcon: ImageIcon(AssetImage(ImageApp.password)),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular( 6),
+                      borderRadius: BorderRadius.circular( 16),
                       borderSide: BorderSide(color:Theme.of(context).colorScheme.onError )
                   ),
-                    fillColor:Theme.of(context).colorScheme.onError ,
+                    fillColor: themeProvider.themeMode == ThemeMode.light
+                        ? Theme.of(context).colorScheme.onError
+                        : Theme.of(context).colorScheme.background ,
                     filled: true,
                   )
                 ),
@@ -157,8 +171,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           emailController.text,
                           passwordController.text,
                           onSuccess: () {
-                            Navigator.pushReplacementNamed(
-                                context, HomeScreen.routeName);
+                            authProvider.initUser();
+                            Navigator.pushNamedAndRemoveUntil (
+                                context, HomeScreen.routeName, (route) => false);
                           }
                           , onError: (message) {
                         ScaffoldMessenger.of(context)
@@ -218,9 +233,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
+                        side: BorderSide(
+                          color:themeProvider.themeMode == ThemeMode.light
+                              ? Theme.of(context).colorScheme.onError
+                              : Theme.of(context).colorScheme.primary
+                        )
                       ),
                       minimumSize: Size(double.infinity, 60),
-                      backgroundColor: Theme.of(context).colorScheme.onError,
+                      backgroundColor:themeProvider.themeMode == ThemeMode.light
+                          ? Theme.of(context).colorScheme.onError
+                          : Theme.of(context).colorScheme.background
+                      ,
                     ),
                     onPressed: (){
                       FirebaseFunction.signInWithGoogle()

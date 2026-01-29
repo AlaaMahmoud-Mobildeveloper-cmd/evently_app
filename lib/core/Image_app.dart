@@ -11,5 +11,19 @@ class ImageApp{
   static const String password = "assets/images/lock.png";
   static const String haedPassword = "assets/images/had.png";
   static const String userName = "assets/images/user.png";
+  static const String userNameSelected = "assets/images/user_select.png";
   static const String resetPassword = "assets/images/Reset.png";
+  static const String home = "assets/images/home.png";
+  static const String homeSelected = "assets/images/home_select.png";
+  static const String favorite = "assets/images/heart.png";
+  static const String favoriteSelected = "assets/images/heart_select.png";
+  static const String  addCalender= "assets/images/calendar.png";
+  static const String  back= "assets/images/back.png";
+  static const String  darkBack= "assets/images/backdark.png";
+  static const String  delete= "assets/images/delete.png";
+  static const String  edit= "assets/images/edit.png";
+  static const String  logOut= "assets/images/logout.png";
+
+
+
 }

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently_app/Provider/theme_provider.dart';
 import 'package:evently_app/core/Image_app.dart';
+import 'package:evently_app/core/firebase_functions.dart';
 import 'package:evently_app/core/style_app.dart';
 import 'package:evently_app/screens/authntaction_screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ThemeProvider>(context);
-
+    var emailController = TextEditingController();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -46,6 +47,44 @@ class ForgetPasswordScreen extends StatelessWidget {
                   ?Theme.of(context).colorScheme.primary
                   :Theme.of(context).colorScheme.onError ,
               size: 440,),
+            TextFormField(
+                validator: (value){
+                  if(value == null ||value.isEmpty ){
+                    return "Please enter your email".tr();
+                  }
+                  final bool emailValid =
+                  RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      .hasMatch(value);
+                  if (!emailValid) {
+                    return "Please enter a valid email".tr();
+                  }
+                  return null;
+                },
+                controller:emailController ,
+                style: TextStyle(
+                    fontSize:  20,
+                    color: Theme.of(context).colorScheme.primary
+                ),
+                decoration: InputDecoration(
+                  hintText: "email".tr(),
+                  helperStyle: StyleApp.descriptionStyleLocalize,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(color:Theme.of(context).colorScheme.onError )
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(color:Theme.of(context).colorScheme.onError )
+                  ),
+                  prefixIcon:ImageIcon(AssetImage(ImageApp.email)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular( 6),
+                      borderSide: BorderSide(color:Theme.of(context).colorScheme.onError )
+                  ),
+                  fillColor:Theme.of(context).colorScheme.onError ,
+                  filled: true,
+                )
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -55,7 +94,32 @@ class ForgetPasswordScreen extends StatelessWidget {
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   padding: EdgeInsets.symmetric(vertical: 10)
               ),
-              onPressed: (){},
+              onPressed: (){
+                FirebaseFunction.resetPassword(
+                    emailController.text,
+                    onSuccess: (){
+                      Navigator.pop(context);
+                    },
+                    onError: (message){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Theme.of(context).colorScheme.onError,
+                          content: Text(message,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.error
+                            ),
+                          ),
+                        ),
+
+                      );
+
+
+
+              },
+                );
+              },
               child:Text( "reset".tr()
                   ,style: StyleApp.titleStyleLocalize.
                   copyWith(

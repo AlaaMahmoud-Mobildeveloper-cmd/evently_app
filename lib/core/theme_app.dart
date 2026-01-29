@@ -5,6 +5,18 @@ class ThemeAppData{
     appBarTheme: AppBarTheme(
       centerTitle: true,
     ),
+    iconTheme: IconThemeData(
+      color: Color(0xFF0E3A99),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: Color(0xFF0E3A99),
+      unselectedItemColor: Color(0xFF686868),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      showUnselectedLabels: true,
+      showSelectedLabels: true,
+    ),
    colorScheme  : ColorScheme(
     brightness: Brightness.light,
 
@@ -26,7 +38,7 @@ class ThemeAppData{
     onSurfaceVariant: Color(0xFF686868),
 
 
-    outline: Color(0xFFF0F0F0),
+    outline: Color(0XFFE9EAEB),
 
     error: Color(0xFFFF3232),
     onError: Color(0xFFFFFFFF),
@@ -35,6 +47,15 @@ class ThemeAppData{
   static ThemeData darkTheme = ThemeData(
       appBarTheme: AppBarTheme(
         centerTitle: true,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Color(0xFFFFFFFF),
+        unselectedItemColor: Color(0xFFFFFFFF),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        showUnselectedLabels: true,
+        showSelectedLabels: true,
       ),
    colorScheme : ColorScheme(
     brightness: Brightness.dark,

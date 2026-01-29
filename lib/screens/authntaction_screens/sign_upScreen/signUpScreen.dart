@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently_app/Provider/theme_provider.dart';
 import 'package:evently_app/core/Image_app.dart';
 import 'package:evently_app/core/firebase_functions.dart';
 import 'package:evently_app/core/style_app.dart';
 import 'package:evently_app/screens/authntaction_screens/login/login_screen.dart';
 import 'package:evently_app/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String routeName = '/signUp';
@@ -24,6 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Padding(
@@ -67,10 +70,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       prefixIcon:ImageIcon(AssetImage(ImageApp.userName)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular( 6),
+                          borderRadius: BorderRadius.circular( 16),
                           borderSide: BorderSide(color:Theme.of(context).colorScheme.onError )
                       ),
-                      fillColor:Theme.of(context).colorScheme.onError ,
+                      fillColor: themeProvider.themeMode == ThemeMode.light
+                          ? Theme.of(context).colorScheme.onError
+                          : Theme.of(context).colorScheme.background ,
                       filled: true,
                     )
                 ),
@@ -105,10 +110,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       prefixIcon:ImageIcon(AssetImage(ImageApp.email)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular( 6),
+                          borderRadius: BorderRadius.circular( 16),
                           borderSide: BorderSide(color:Theme.of(context).colorScheme.onError )
                       ),
-                      fillColor:Theme.of(context).colorScheme.onError ,
+                      fillColor: themeProvider.themeMode == ThemeMode.light
+                          ? Theme.of(context).colorScheme.onError
+                          : Theme.of(context).colorScheme.background,
                       filled: true,
                     )
                 ),
@@ -157,10 +164,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ,
                       prefixIcon: ImageIcon(AssetImage(ImageApp.password)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular( 6),
+                          borderRadius: BorderRadius.circular( 16),
                           borderSide: BorderSide(color:Theme.of(context).colorScheme.onError )
                       ),
-                      fillColor:Theme.of(context).colorScheme.onError ,
+                      fillColor: themeProvider.themeMode == ThemeMode.light
+                          ? Theme.of(context).colorScheme.onError
+                          : Theme.of(context).colorScheme.background,
                       filled: true,
                     )
                 ),
@@ -205,10 +214,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ,
                       prefixIcon: ImageIcon(AssetImage(ImageApp.password)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular( 6),
+                          borderRadius: BorderRadius.circular( 16),
                           borderSide: BorderSide(color:Theme.of(context).colorScheme.onError )
                       ),
-                      fillColor:Theme.of(context).colorScheme.onError ,
+                      fillColor: themeProvider.themeMode == ThemeMode.light
+                          ? Theme.of(context).colorScheme.onError
+                          : Theme.of(context).colorScheme.background,
                       filled: true,
                     )
                 ),
@@ -291,9 +302,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
+                        side: BorderSide(
+                            color:themeProvider.themeMode == ThemeMode.light
+                                ? Theme.of(context).colorScheme.onError
+                                : Theme.of(context).colorScheme.primary
+                        )
                       ),
                       minimumSize: Size(double.infinity, 60),
-                      backgroundColor: Theme.of(context).colorScheme.onError,
+                      backgroundColor: themeProvider.themeMode == ThemeMode.light
+                          ? Theme.of(context).colorScheme.onError
+                          : Theme.of(context).colorScheme.background
+                      ,
                     ),
                     onPressed: (){
                       FirebaseFunction.signInWithGoogle()
