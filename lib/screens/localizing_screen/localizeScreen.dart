@@ -150,9 +150,7 @@ class LocalizeScreen extends StatelessWidget {
 
               onPressed: () async{
                 await CachingHelper.saveCaching(true);
-                Navigator.pushNamed(context, CachingHelper.getCaching("caching") == true
-                    ? LoginScreen.routeName
-                    :OnboardingScreen.routeName);
+                Navigator.pushNamed(context,OnboardingScreen.routeName);
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 10),

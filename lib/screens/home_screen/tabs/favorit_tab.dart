@@ -11,7 +11,7 @@ class FavoriteTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context)=>FavoriteProvider().. getFavoriteTasks(),
+      create: (context)=>FavoriteProvider()..getFavoriteTasks(),
       builder: (context, child){
         var themeProvider = Provider.of<ThemeProvider>(context);
         var provider = Provider.of<FavoriteProvider>(context);

@@ -51,7 +51,7 @@ class _HomeTabState extends State<HomeTab> {
                             ),
                             label: Text(provider.categories[index],
                               style: StyleApp.descriptionStyleLocalize.copyWith(
-                                fontSize: 18,
+                                fontSize:MediaQuery.of(context).size.width > 400? 18:15,
                                 color: provider.selectedCategory == index ? Theme.of(context).colorScheme.onPrimary : Theme.of(context).colorScheme.primary,
                               ),
                             )),

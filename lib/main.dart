@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
       authProvider.firebaseUser!=null
           ? HomeScreen.routeName
           : LoginScreen.routeName
-          : LocalizeScreen.routeName ,
+          : OnboardingScreen.routeName ,
       routes: {
         LocalizeScreen.routeName: (context) =>  LocalizeScreen(),
         OnboardingScreen.routeName: (context) =>  OnboardingScreen(),

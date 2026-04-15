@@ -31,14 +31,14 @@ class HomeScreen extends StatelessWidget {
             title:provider.selectedIndex==0 ? ListTile(
               title: Text( "welcome".tr(),
                 style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary
                 ),
               ),
-              subtitle: Text(authProvider.userModel?.name ?? "",
+              subtitle: Text(authProvider.userModel?.name ?? "User${authProvider.userModel?.email}",
                   style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.onSurfaceVariant
                   )

@@ -94,11 +94,11 @@ class _AddEventScreenState extends State<AddEventScreen> {
               child: themeProvider.themeMode == ThemeMode.light?
               Image.asset("assets/images/${categories[selectedCategory]}.png",
                 width: double.infinity,
-                height: 230,
+                height: MediaQuery.of(context).size.height*0.2,
                 fit: BoxFit.cover,
             ):Image.asset("assets/images/${categories[selectedCategory]}dark.png",
                 width: double.infinity,
-                height: 230,
+                height: MediaQuery.of(context).size.height*0.2,
                 fit: BoxFit.cover,
               ),
             ),
@@ -241,7 +241,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
 
               ]
             ),
-            SizedBox(height:100),
+            SizedBox(height:MediaQuery.of(context).size.height*0.05),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
