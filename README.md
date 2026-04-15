@@ -86,7 +86,7 @@ The app supports multiple languages:
 - **Firebase Authentication**
 - **Cloud Firestore**
 - **easy_localization**
-- **flutter_screenutil**
+- **flutter_screenUtil**
 
 ---
 
